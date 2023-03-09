@@ -9,7 +9,5 @@ elif num_args == 1:
     print("1 argument:")
 else:
     print("{} arguments:".format(num_args))
-
-if num_args >= 1:
-    for arg in range(args):
-        print("{}: {}".format(i + 1, sys.argv[i + 1]))
+for arg in range(num_args):
+    print("{}: {}".format(i + 1, sys.argv[i + 1]))
