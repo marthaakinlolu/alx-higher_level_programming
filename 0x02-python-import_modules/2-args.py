@@ -10,4 +10,4 @@ elif num_args == 1:
 else:
     print("{} arguments:".format(num_args))
 for arg in range(num_args):
-    print("{}: {}".format(i + 1, sys.argv[i + 1]))
+    print("{}: {}".format(arg + 1, sys.argv[arg + 1]))
