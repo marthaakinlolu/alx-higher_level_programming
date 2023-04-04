@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 
-""" A Rectangle class"""
+""" An empty class Rectangle"""
 
 class Rectangle:
     """ Empty class """

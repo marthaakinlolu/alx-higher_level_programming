@@ -1,4 +1,13 @@
+#!/usr/bin/python3
+
+""" this module creates a rectangle and initializes its value """
+
 class Rectangle:
+    """Method that initializes the instance
+    Args:
+            width: width of the rectangle
+            height: height of the rectangle
+    """
     def __init__(self, width=0, height=0):
         self.width = width
         self.height = height
