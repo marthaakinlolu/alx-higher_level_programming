@@ -1,4 +1,4 @@
 #!/bin/bash
-#script that takes URL as an argument, sends a GET request to the URL, and displays the body of the response
+#script to GET request and display the body of response
 
 curl -s "$1" -H "X-School-User-Id: 98"
