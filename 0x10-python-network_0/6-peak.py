@@ -2,19 +2,23 @@
 """ Finds a peak inside a list """
 
 def find_peak(list_of_integers):
-    nums = list_of_integers
-    if not nums:
+    if list_of_integers == []:
         return None
 
-    low = 0
-    high = len(nums) - 1
+    length = len(list_of_integers)
+    mid = int(length / 2)
+    li = list_of_integers
 
-    while low < high:
-        mid = (low + high) // 2
+    if mid - 1 < 0 and mid + 1 >= length:
+        return li[mid]
+    elif mid - 1 < 0:
+        return li[mid] if li[mid] > li[mid + 1] else li[mid + 1]
+    elif mid + 1 >= length:
+        return li[mid] if li[mid] > li[mid - 1] else li[mid - 1]
 
-        if nums[mid] < nums[mid + 1]:
-            low = mid + 1
-        else:
-            high = mid
+    if li[mid - 1] < li[mid] > li[mid + 1]:
+        return li[mid]
 
-    return nums[low]
+    if li[mid + 1] > li[mid - 1]:
+        return find_peak(li[mid:])
+    return find_peak(li[:mid])
