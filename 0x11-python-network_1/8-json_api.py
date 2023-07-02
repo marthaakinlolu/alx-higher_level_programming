@@ -1,27 +1,27 @@
 #!/usr/bin/python3
 """
-Python script that sends a POST request to the URL and
-to an URL with the letter as a parameter
+Use requests package to make a post request to given URL with argument
+set in variable `q`, defaulting to empty string. If response body is properly
+JSON formatted and not empty, display `id` and `name` as given format.
+Otherwise display error message.
 """
-import requests
 import sys
-
+import requests
 
 if __name__ == "__main__":
-    data = {'q': ""}
-
+    if len(sys.argv) > 1:
+        arg = sys.argv[1]
+    else:
+        arg = ""
+    payload = {'q': arg}
+    url = "http://0.0.0.0:5000/search_user"
+    r = requests.post(url, data=payload)
     try:
-        data['q'] = sys.argv[1]
-    except:
-        pass
-
-    r = requests.post('http://0.0.0.0:5000/search_user', data)
-
-    try:
-        json_o = r.json()
-        if not json_o:
+        r.raise_for_status()
+        json = r.json()
+        if len(json) == 0:
             print("No result")
         else:
-            print("[{}] {}".format(json_o.get('id'), json_o.get('name')))
-    except:
+            print("[{:d}] {}".format(json['id'], json['name']))
+    except Exception:
         print("Not a valid JSON")
