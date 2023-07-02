@@ -1,30 +1,27 @@
 #!/usr/bin/python3
-"""This script communicates with an API and gets a JSON formatted response"""
+"""
+Use requests package to make a post request to given URL with argument
+set in variable `q`, defaulting to empty string. If response body is properly
+JSON formatted and not empty, display `id` and `name` as given format.
+Otherwise display error message.
+"""
+import sys
 import requests
-from sys import argv
-
-
-def get_request_status(letter: str):
-    payload = {}
-    payload["q"] = letter
-
-    url = "http://0.0.0.0:5000/search_user"
-    req = requests.post(url, data=payload)
-
-    try:
-        resp_dict = req.json()
-        if resp_dict:
-            print("[{}] {}".format(resp_dict.get("id"), resp_dict.get("name")))
-        else:
-            print("No result")
-    except requests.exceptions.JSONDecodeError:
-        print("Not a valid JSON")
-
 
 if __name__ == "__main__":
+    if len(sys.argv) > 1:
+        arg = sys.argv[1]
+    else:
+        arg = ""
+    payload = {'q': arg}
+    url = "http://0.0.0.0:5000/search_user"
+    r = requests.post(url, data=payload)
     try:
-        letter = argv[1]
-    except IndexError:
-        letter = ""
-    finally:
-        get_request_status(letter)
+        r.raise_for_status()
+        json = r.json()
+        if len(json) == 0:
+            print("No result")
+        else:
+            print("[{:d}] {}".format(json['id'], json['name']))
+    except Exception:
+        print("Not a valid JSON")
